@@ -36,6 +36,13 @@
 #include <sys/time.h>
 #include <time.h>
 
+#include <AvailabilityMacros.h>
+#ifndef MAC_OS_X_VERSION_10_12
+#define MAC_OS_X_VERSION_10_12 101200
+#endif
+
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_12
+
 #define CLOCK_REALTIME 0
 #define CLOCK_REALTIME_COARSE 0
 #define CLOCK_MONOTONIC 0
@@ -50,6 +57,8 @@ int clock_gettime(clockid_t clk_id, struct timespec *tp);
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif
 
 #endif // FABTESTS_OSX_OSD_H
