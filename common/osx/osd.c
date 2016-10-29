@@ -32,6 +32,8 @@
 
 #include "osx/osd.h"
 
+#if HAVE_CLOCK_GETTIME == 0
+
 // clock_gettime() does not exist on OS X.  Instead, simply use
 // gettimeofday(), which is apparently fairly efficient on OS X (i.e.,
 // ignore the clk_id that is passed in and always return the system
@@ -47,3 +49,5 @@ int clock_gettime(clockid_t clk_id, struct timespec *tp) {
 
 	return retval;
 }
+
+#endif

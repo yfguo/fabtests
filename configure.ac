@@ -108,5 +108,15 @@ AC_CHECK_FUNC([epoll_create1], [have_epoll=1], [have_epoll=0])
 AC_DEFINE_UNQUOTED([HAVE_EPOLL], [$have_epoll],
 		   [Defined to 1 if Linux epoll is available])
 
+have_clock_gettime=0
+AC_SEARCH_LIBS([clock_gettime],[rt],
+		[have_clock_gettime=1],
+		[AC_CHECK_FUNCS([host_get_clock_service],
+			[have_host_get_clock_service=1],
+			[AC_MSG_ERROR([clock_gettime or host_get_clock_service
+			 not found.])])])
+
+AC_DEFINE_UNQUOTED(HAVE_CLOCK_GETTIME, [$have_clock_gettime],
+		   [Define to 1 if clock_gettime is available.])
 AC_CONFIG_FILES([Makefile fabtests.spec])
 AC_OUTPUT
